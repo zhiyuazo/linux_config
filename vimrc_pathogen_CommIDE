@@ -1,0 +1,257 @@
+"-----------------------------------------------
+" general configuration 
+"-----------------------------------------------
+set nocompatible   " set nocompatible with old vi
+filetype off
+"--
+"***********************************************************Pathogen****
+call pathogen#infect()
+call pathogen#helptags()
+set encoding=utf-8                                    
+set fileencoding=utf-8              
+set fileencodings=ucs-bom,utf-8,gbk,cp936,latin-1
+set fileformat=unix 
+set fileformats=unix,dos,mac  
+"---
+filetype on
+filetype plugin on
+filetype indent on
+filetype plugin indent on
+let mapleader='\'
+let maplocalleader=';'
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4 
+set expandtab
+set smarttab
+" --------------
+syntax on                       "Auto-highlight syntax         
+set t_Co=256
+colorscheme molokai            "Theme
+" colorscheme solarized           "Theme
+"colorscheme bandit            "Theme
+"colorscheme Tomorrow-Night            "Theme
+set background=dark             "set back ground
+set nu                          "display line number
+set noshowcmd
+" set paste                       "the string will not disorder
+set history=700
+set autoread
+set autochdir                   "auto cd - the current file 's dir
+set autoindent                   "auto cd - the current file 's dir
+set smartindent                 "auto_indent when new line
+"set cursorline                  "stress the current line
+set ruler                       "open the status ruler  
+" au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 80 . 'v.\+', -1)
+set vb t_vb=
+set nobackup                    "cover a file no backup
+set backupcopy=yes              
+set ignorecase smartcase        "ignor the case when search
+set nowrapscan                  "no while when serach            
+set nowrap
+set incsearch                
+set hlsearch                    "highlight the search result
+set showmatch                   "find the match {,(
+set matchtime=2
+set cmdheight=2                 "heigh of cms window
+set laststatus=2                "dispaly the status bar
+set guioptions-=T               "gui relate
+set guioptions-=m               "gui relate
+set backspace=indent,eol,start  "don't clear
+"set novisualbell               "not visualbell
+"---
+set foldenable
+"set foldopen=all               "When curse , auto_open fold
+"set foldclose=all              "When curse , auto-close fold
+set foldmethod=indent           "mark ,manual , expr, syntax,diff ,indent
+set foldlevel=100              "No fold when open a file
+nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>   
+vmap <Up> k
+vmap <Down> j
+vmap <Left> h
+vmap <Right> l 
+nmap cS :%s/\s\+$//g<CR>:noh<CR>    " space clear
+nmap cM :%s/\r$//g<CR>:noh<CR>      " M     clear
+imap <c-k> <Up>
+imap <c-j> <Down>
+imap <c-h> <Left>
+imap <c-l> <Right>
+noremap <c-k> <c-w>k                                                        
+noremap <c-j> <c-w>j
+noremap <c-h> <c-w>h
+noremap <c-l> <c-w>l
+"--- source $VIMRUNTIME/mswin.vim behave mswin "---return the curren OS 's type 
+function! MySys() 
+    if has("win16") || has("win32") || has("win64") || has("win95")
+        return "windows"
+    elseif has("unix")
+        return "linux"
+    endif
+endfunction
+"---set the $VIMFILES
+if MySys() == "windows"
+    let $VIMFILES = $VIM.'/vimfiles'
+elseif MySys() == "linux"
+    let $VIMFILES = $HOME.'/.vim'
+endif 
+"---
+let helptags=$VIMFILES.'/doc'
+"*******************************
+"Add tools: some useful plugin
+"***********************************************************ctags****
+"set tags=~/McasCode/r45/tags
+set tags=tags;
+set autochdir
+nmap <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q<CR> 
+"***********************************************************Cscope****
+"--------
+"***********************************************************A.vim****
+"  :A to change foucus between *.c and *.h
+"  :AV vertical window
+"  :AS horizen  window
+"***********************************************************BufExplore*
+"<leader>be open the buffexplore window
+"<leader>bs open the buffexplore window in vertical style
+"<leader>bv open the buffexplore window in horizen style
+"***********************************************************IndentLine****
+nmap <leader>il :IndentLinesToggle<CR>
+let g:indentLine_char = "|"
+let g:indentLine_first_char = "|"
+let g:indentLine_color_term=128
+"***********************************************************Auto_pairs****
+"auto complete "" and ()
+let g:AutoPairsShortcutToggle = '<leader>ap'
+"***********************************************************TagBar****
+" Replace the  taglist
+" F2 to call the function
+" To display the obj and var in the current file
+nmap <F3> :TagbarToggle<CR>
+let g:Tagbar_Ctags_Cmd='/usr/bin/ctags'
+let g:Tagbar_Show_One_File=1
+let g:Tagbar_Exit_OnlyWindow=1
+let g:Tagbar_File_Fold_Auto_Close=0
+let g:Tagbar_WinWidth=20
+let g:Tagbar_WinHeight=20
+let g:Tagbar_Auto_Open=0
+let g:Tagbar_GainFocus_On_ToggleOpen=1
+let g:Tagbar_Use_Right_Window=0
+"***********************************************************Taglist***
+"it's be forbidden now.
+"nmap <F2> :Tlist<CR>
+"let g:Tlist_Ctags_Cmd='/usr/bin/ctags'
+"let g:Tlist_Show_One_File=1
+"let g:Tlist_Exit_OnlyWindow=1
+"let g:Tlist_File_Fold_Auto_Close=1
+"let g:Tlist_WinWidth=20
+"let g:Tlist_WinHeight=20
+"let g:Tlist_Auto_Open=0
+"let g:Tlist_GainFocus_On_ToggleOpen=1
+"let g:Tlist_Use_Right_Window=1
+"let Tlist_Sort_Type='name'
+"let Tlist_Show_Menu=1
+"let Tlist_Max_Submenu_Items=10
+"let Tlist_Max_Tag_length=20
+"let Tlist_Use_SingleClick=0
+"let Tlist_Close_On_Select=0
+"let Tlist_Process_File_Always=1
+"let Tlist_Use_Horiz_Window=0
+"**********************************************************NERDTree****
+" F3 call the function
+" To display the files in the curren dirctory
+nmap <F2> :NERDTreeToggle<CR>
+"let loaded_nerd_tree=1
+"let NERDTreeIgnore=['/.vim$','/~$']
+let NERDTreeShowHidden=0  
+let NERDTreeSortOrder=['//$','/.cpp$','/.c$','/.h$','*']
+let NERDTreeCaseSensitiveSort=0
+let NERDTreeWinSize=20
+let NERDTreeShowLineNumbers=0  
+let NERDTreeShowBookmarks=0
+let NERDTreeQuitOnOpen=0
+let NERDTreeHighlightCursorline=1
+"**********************************************************SrcExplore***
+" it 's be forbbdent now 
+" nmap <F4> :SrcExplToggle<CR>
+" let g:SrcExpl_winHeight = 8
+" let g:SrcExpl_refreshTime = 100
+" let g:SrcExpl_jumpKey = "<ENTER>" 
+" let g:SrcExpl_gobackKey = "<SPACE>" 
+" let g:SrcExpl_pluginList = [\"__Tag_bar__",\"_NERD_tree_"\] 
+" let g:SrcExpl_searchLocalDef = 1 
+" let g:SrcExpl_isUpdateTags = 0
+" let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R"
+" let g:SrcExpl_updateTagsKey = "<F12>" 
+" let g:SrcExpl_prevDefKey = "<F10>" 
+" let g:SrcExpl_nextDefKey = "<F11>" 
+
+
+"**********************************************************NERDComment****
+"<leader>ci comment on a line 
+"<leader>cm comment on a line  
+"<leader>cc comment on a lock area 
+"<leader>cu comment cancle
+"<leader>ca comment style between /* */ and // 
+"<leader>cA comment on the tailer of a line. 
+let NERDSpaceDelims = 1 
+"**********************************************************WinManager***
+"the tagbar can't be call bu the WinManager so do not use it 
+" nmap <F4> :WMToggle<cr>
+" let g:winManagerWindowLayout='BufExplorer|NERDTree'
+" "BufExplorer,FileExplorer|TagList|NERDTree
+" let g:persistentBehaviour=0
+" let g:winManagerWidth=20
+" let g:defaultExplorer=1
+" let g:AutoOpenWinManager=0
+"**********************************************************SuperTab***
+" not install yet
+let g:SuperTabDefaultCompletionType="context"
+"***********************************************************AirLine***
+"let laststatus=2
+"let g:airline_left_sep='>'
+"let g:airline_right_sep='<'
+"let g:airline_detect_modified=1
+""let g:airline_detect_paste=1
+"set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 13
+"let g:airline_powerline_fonts = 1
+"let g:airline_theme='airlineish'
+"let g:airline_section_b = '%{strftime("%c")}'
+"let g:airline_section_y = 'BN: %{bufnr("%")}'
+"let g:airline#extensions#tavline#enabled = 1
+
+"**********************************************************CtrlP***
+"ctrl+p invoke the function
+"ctrl+f/b swich between the dir and file serch mode
+"ctrl+j/k select
+"ctrl+t open file in a new tab
+"ctrl+v open file in a vertical mode
+"ctrl+x open file i a horizen mode
+"ctrl+z mark or unmark some file 
+"ctrl+o open the files you markd
+"ctrl+r serch with the regular express
+"ctrl+d swich search file or the full_path
+"ESC exit the search mode
+"**********************************************************DrawIt***
+"\di start to draw it 
+"\ds stop to draw it 
+"**********************************************************Mark***
+" \m mark or unmark the word under or before the curse
+" \n clear the curren mark under the curse or all marks
+" \r serch a work to mark which support the regular express.
+"*******************************************************TxtBrowser***
+"................................................
+"*******************************************************Snipmate***
+" let g:SuperTabDefaultCompletionType = "context"
+" let g:snips_trigger_key='<F12>' 
+" let g:snippets_dir='~/.vim/bundle/snipMate/snippets/'
+"*******************************************************XPtemplate***
+let g:xptemplate_key = '<Tab>'
+
+
+
+
+
+
+
+
+
+
