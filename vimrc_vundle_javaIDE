@@ -154,8 +154,10 @@ nnoremap <F5> :tabp<CR>
 nnoremap <F6> :tabn<CR>   
 
 "***********************************************************Compile&Build****
+"map <F7> :!cd %:p:h && javac -cp ../../lib:../../bin -sourcepath ../../bin -Djava.ext.dirs=../../lib -d ../../bin *.java<CR> 
+"map <F8> :!cd %:p:h && java -cp ../../bin -Djava.ext.dirs=../../lib %:p:h:t.%:p:t:r<CR>
 map <F7> :!cd %:p:h && javac -cp ../../lib:../../bin -sourcepath ../../bin -Djava.ext.dirs=../../lib -d ../../bin *.java<CR> 
-map <F8> :!cd %:p:h && java -cp ../../bin -Djava.ext.dirs=../../lib %:p:h:t.%:p:t:r<CR>
+map <F8> :!cd %:p:h && java -cp ../../bin -Djava.ext.dirs=../../lib %:t:r<CR>
 "Unused  <F9>    
 "Unused  <F10> 
 
