@@ -26,8 +26,9 @@ Bundle 'syntastic'
 Bundle 'TagHighlight'
 "----------------------
 set encoding=utf-8                                    
-set fileencoding=utf-8              
-set fileencodings=ucs-bom,utf-8,gbk,cp936,latin-1
+set termencoding=utf-8
+set fileencoding=prc              
+set fileencodings=utf-8,ucs-bom,gbk,,gb2312,gb18030,cp936,latin-1
 set fileformat=unix 
 set fileformats=unix,dos,mac  
 "---
@@ -156,10 +157,11 @@ nnoremap <F6> :tabn<CR>
 "***********************************************************Compile&Build****
 "map <F7> :!cd %:p:h && javac -cp ../../lib:../../bin -sourcepath ../../bin -Djava.ext.dirs=../../lib -d ../../bin *.java<CR> 
 "map <F8> :!cd %:p:h && java -cp ../../bin -Djava.ext.dirs=../../lib %:p:h:t.%:p:t:r<CR>
-map <F7> :!cd %:p:h && javac -cp ../../lib:../../bin -sourcepath ../../bin -Djava.ext.dirs=../../lib -d ../../bin *.java<CR> 
+"map <F7> :!cd %:p:h && javac -cp ../../lib:../../bin -sourcepath ../../bin -Djava.ext.dirs=../../lib -d ../../bin *.java<CR> 
+map <F7> :!cd %:p:h && javac -cp ../../lib:../../bin -sourcepath ../../bin -Djava.ext.dirs=../../lib -d ../../bin %:p<CR> 
 map <F8> :!cd %:p:h && java -cp ../../bin -Djava.ext.dirs=../../lib %:t:r<CR>
 "Unused  <F9>    
-"Unused  <F10> 
+map <F10> :IndentLinesToggle<CR>
 
 "***********************************************************For Paste****
 set pastetoggle=<F11>
